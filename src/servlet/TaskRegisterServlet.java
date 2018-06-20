@@ -36,7 +36,9 @@ public class TaskRegisterServlet extends HttpServlet {
 			//System.out.println("b");
 		TaskService taskService = new TaskService();
 		taskService.taskRegister(id,  text);
+
 		request.getRequestDispatcher("taskRegisterResult.jsp").forward(request,  response);
+
 		return;
 		}
 	}

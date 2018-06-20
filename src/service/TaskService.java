@@ -29,5 +29,25 @@ public class TaskService {
 		}
 		return Collections.emptyList();
 	}
+
+	public List<Task>  selectFinishedTask(int userId) {
+		try (Connection conn = DbUtil.getConnection()) {
+			TaskDao taskDao = new TaskDao(conn);
+			return taskDao.selectFinishedTask(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Collections.emptyList();
+	}
+
+	public int taskStatusUpdate(int taskId) {
+		try (Connection conn = DbUtil.getConnection()) {
+			TaskDao taskDao = new TaskDao(conn);
+			return taskDao.taskStatusUpdate(taskId);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }
 

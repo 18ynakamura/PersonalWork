@@ -9,57 +9,44 @@
 <title>Menu</title>
 </head>
 <body>
-<%
-String str = (String)session.getAttribute("name");
-%>
-<%=str %>
-<c:if test="${not empty msg}">
-<p>${msg} </p>
-</c:if>
+	<%
+		String str = (String) session.getAttribute("name");
+	%>
+	<%=str%>
+	<c:if test="${not empty msg}">
+		<p>${msg}</p>
+	</c:if>
 	<p>
-		<a href="taskRegister.jsp">Task登録</a>
-		<a href="battle.jsp">Battle</a>
+		<a href="taskRegister.jsp">Task登録</a> <a href="battle.jsp">Battle</a>
 		<a href="logout.jsp">Logout</a>
 	</p>
 	<p>Task</p>
 	<p>Unfinished</p>
 	<p>
-	<table>
-<tr>
-<th>TaskID</th>
-<th>UserID</th>
-<th>TEXT</th>
-<th>STATUS</th>
-</tr>
-<c:forEach var = "task" items="${userList}">
-<tr>
-<td>${fn:escapeXml(task.taskId)}</td>
-<td>${fn:escapeXml(task.userId)}</td>
-<td>${fn:escapeXml(task.text)}</td>
-<td>${fn:escapeXml(task.stat)}</td>
-</tr>
-</c:forEach>
-</table>
 	<fieldset>
-	<form action="taskFinish" method="post">
-		<div>
-		<input type="checkbox" id = "task1" name="task1" value="1">
-		<label for="tasl1">ディスカッションアンケートに答える</label>
-		</div>
-		<input type="submit" value="Finish">
-	</form>
+		<form action="taskFinish" method="post">
+			<div>
+				<c:forEach var="task" items="${userList}">
+					<input type="checkbox" name="task"
+						value="${fn:escapeXml(task.taskId)}">${fn:escapeXml(task.text)}<br>
+				</c:forEach>
+			</div>
+			<input type="hidden" name="hidden" value="">
+			<input type="submit" value="Finish">
+		</form>
 	</fieldset>
 	</p>
-	<p>Unfinished</p>
+	<p>Finished</p>
 	<p>
 	<fieldset>
-	<form action="taskDelete" method="post">
-		<div>
-		<input type="checkbox" id = "task1" name="task1" value="1">
-		<label for="tasl1">ディスカッションアンケートに答える</label>
-		</div>
-		<input type="submit" value="Delete">
-	</form>
+		<form action="taskDelete" method="post">
+			<div>
+				<c:forEach var="task" items="${finishedList}">
+				・${fn:escapeXml(task.text)}<br>
+				</c:forEach>
+			</div>
+			<input type="submit" value="Delete">
+		</form>
 	</fieldset>
 	</p>
 	<div>
@@ -69,6 +56,7 @@ String str = (String)session.getAttribute("name");
 	<img src="image/Penguins.jpg" width="205" height="180">
 	<p>LV 3</p>
 	<p>Exp 20/40</p>
-	<p>HP 40/40<p>
+	<p>HP 40/40
+	<p>
 </body>
 </html>

@@ -17,14 +17,14 @@ import service.TaskService;
 /**
  * Servlet implementation class TaskFinishServlet
  */
-@WebServlet("/taskFinish")
-public class TaskFinishServlet extends HttpServlet {
+@WebServlet("/taskResult")
+public class TaskResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public TaskFinishServlet() {
+	public TaskResultServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -46,15 +46,6 @@ public class TaskFinishServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		TaskService taskService = new TaskService();
 
-		String[] sList = request.getParameterValues("task");
-		//taskIdがString配列に入っているのでIntegerに変換し、unfinished→finishedにupdateするメソッドに使用
-		//拡張for文でチェックがついた全てのタスクのstatusをアップデート
-		if (sList!=null) {
-			for(String s : sList) {
-				taskService.taskStatusUpdate(Integer.parseInt(s));
-			}
-		}else {
-		}
 		List<Task> list = taskService.selectUnfinishedTask((int)session.getAttribute("id"));
 		List<Task> finishedList = taskService.selectFinishedTask((int)session.getAttribute("id"));
 		if (list != null) {

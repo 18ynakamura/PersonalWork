@@ -57,12 +57,18 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("name", user.getUserName());
 			session.setAttribute("id", user.getUserId());
 
+
 			//tasksのカラムuser_idがuser.getUserId() (ログインしたuser_id)と一致するTaskをDBから取得、Sessionに保存
 			TaskService taskService = new TaskService();
 			List<Task> list = taskService.selectUnfinishedTask(user.getUserId());
-
+			List<Task> finishedList = taskService.selectFinishedTask(user.getUserId());
 			if (list != null) {
 				request.setAttribute("userList",list);
+			}else {
+				request.setAttribute("msg", "入力されたデータは存在しません");
+			}
+			if (finishedList != null) {
+				request.setAttribute("finishedList",finishedList);
 			}else {
 				request.setAttribute("msg", "入力されたデータは存在しません");
 			}
