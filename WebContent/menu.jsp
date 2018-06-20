@@ -1,5 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +9,13 @@
 <title>Menu</title>
 </head>
 <body>
+<%
+String str = (String)session.getAttribute("name");
+%>
+<%=str %>
+<c:if test="${not empty msg}">
+<p>${msg} </p>
+</c:if>
 	<p>
 		<a href="taskRegister.jsp">Task登録</a>
 		<a href="battle.jsp">Battle</a>
@@ -15,6 +24,22 @@
 	<p>Task</p>
 	<p>Unfinished</p>
 	<p>
+	<table>
+<tr>
+<th>TaskID</th>
+<th>UserID</th>
+<th>TEXT</th>
+<th>STATUS</th>
+</tr>
+<c:forEach var = "task" items="${userList}">
+<tr>
+<td>${fn:escapeXml(task.taskId)}</td>
+<td>${fn:escapeXml(task.userId)}</td>
+<td>${fn:escapeXml(task.text)}</td>
+<td>${fn:escapeXml(task.stat)}</td>
+</tr>
+</c:forEach>
+</table>
 	<fieldset>
 	<form action="taskFinish" method="post">
 		<div>

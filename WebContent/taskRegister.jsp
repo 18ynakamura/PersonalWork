@@ -1,5 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +9,9 @@
 <title>Login</title>
 </head>
 <body>
+<c:if test="${not empty msg}">
+<p>${msg} </p>
+</c:if>
 <p>Taskを登録します</p>
 <form action="taskRegister" method="post">
     <div>
