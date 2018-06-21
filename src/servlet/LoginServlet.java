@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import entity.Characters;
+import entity.LevelInfo;
 import entity.Task;
 import entity.User;
 import service.CharacterService;
+import service.LevelInfoService;
 import service.TaskService;
 import service.UserService;
 
@@ -45,6 +47,7 @@ public class LoginServlet extends HttpServlet {
 		// ログインチェック
 		UserService userService = new UserService();
 		CharacterService characterService = new CharacterService();
+		LevelInfoService levelInfoService = new LevelInfoService();
 		User user = userService.authentication(name, pass);
 		boolean isSuccess = user != null;
 
@@ -65,6 +68,11 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("level", c.getLevel());
 			session.setAttribute("c_exp", c.getC_exp());
 			session.setAttribute("c_hp", c.getC_hp());
+
+			//Levelに関連した情報をセッションスコープに保存
+			LevelInfo l = levelInfoService.getAll(c.getLevel());
+			session.setAttribute("exp", l.getExp());
+			session.setAttribute("hp", l.getHp());
 
 			//tasksのカラムuser_idがuser.getUserId() (ログインしたuser_id)と一致するTaskをDBから取得、Sessionに保存
 			TaskService taskService = new TaskService();

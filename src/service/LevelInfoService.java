@@ -3,11 +3,11 @@ package service;
 import java.sql.Connection;
 
 import dao.CharacterDao;
-import entity.CharLvJoin;
-import entity.Characters;
+import dao.LevelInfoDao;
+import entity.LevelInfo;
 import util.DbUtil;
 
-public class CharacterService {
+public class LevelInfoService {
 
 	public int setExp(int exp, int userId) {
 		try (Connection conn = DbUtil.getConnection()) {
@@ -28,21 +28,11 @@ public class CharacterService {
 		}
 		return 0;
 	}
-	//Characterテーブルから全件取得
-	public Characters getAll(int userId) {
+	//LevelInfoテーブルから全件取得
+	public LevelInfo getAll(int userId) {
 		try (Connection conn = DbUtil.getConnection()) {
-			CharacterDao characterDao = new CharacterDao(conn);
-			return characterDao.getAll(userId);
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public CharLvJoin getHpAttack(int userId) {
-		try (Connection conn = DbUtil.getConnection()) {
-			CharacterDao characterDao = new CharacterDao(conn);
-			return characterDao.getHpAttack(userId);
+			LevelInfoDao levelInfoDao = new LevelInfoDao(conn);
+			return levelInfoDao.getAll(userId);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -52,7 +52,7 @@
 	<p>Character</p>
 	<img src="image/Penguins.jpg" width="205" height="180">
 	<p>LV <%=(int)session.getAttribute("level") %></p>
-	<p>Exp <%=(int)session.getAttribute("c_exp") %></p>
-	<p>HP <%=(int)session.getAttribute("c_hp") %></p>
+	<p>Exp <%=(int)session.getAttribute("c_exp") %>/<%=(int)session.getAttribute("exp") %></p>
+	<p>HP <%=(int)session.getAttribute("c_hp") %>/<%=(int)session.getAttribute("hp") %></p>
 </body>
 </html>
