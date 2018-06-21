@@ -20,6 +20,16 @@ public class TaskService {
 		return 0;
 	}
 
+	public int taskDelete() {
+		try (Connection conn = DbUtil.getConnection()) {
+			TaskDao taskDao = new TaskDao(conn);
+			return taskDao.taskDelete();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 	public List<Task>  selectUnfinishedTask(int userId) {
 		try (Connection conn = DbUtil.getConnection()) {
 			TaskDao taskDao = new TaskDao(conn);

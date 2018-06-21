@@ -14,6 +14,7 @@ public class TaskDao {
 	private static final String SQL_SELECT_TASK_UNFINISHED = "SELECT * FROM tasks WHERE user_id=? AND status='unfinished'";
 	private static final String SQL_SELECT_TASK_FINISHED = "SELECT * FROM tasks WHERE user_id=? AND status='finished'";
 	private static final String SQL_UPDATE_TASK_STATUS = "UPDATE tasks SET status='finished' WHERE task_id=?";
+	private static final String SQL_DELETE_TASK = "DELETE FROM tasks WHERE status='finished'";
 	private Connection connection;
 
 	public TaskDao(Connection connection) {
@@ -28,6 +29,14 @@ public class TaskDao {
 			stmt.setInt(1, id);
 			stmt.setString(2, text);
 
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public int taskDelete() {
+		try (PreparedStatement stmt = connection.prepareStatement(SQL_DELETE_TASK)) {
 			return stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

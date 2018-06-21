@@ -9,10 +9,7 @@
 <title>Menu</title>
 </head>
 <body>
-	<%
-		String str = (String) session.getAttribute("name");
-	%>
-	<%=str%>
+<%=(String)session.getAttribute("name") %>
 	<c:if test="${not empty msg}">
 		<p>${msg}</p>
 	</c:if>
@@ -42,7 +39,7 @@
 		<form action="taskDelete" method="post">
 			<div>
 				<c:forEach var="task" items="${finishedList}">
-				・${fn:escapeXml(task.text)}<br>
+				○${fn:escapeXml(task.text)}<br>
 				</c:forEach>
 			</div>
 			<input type="submit" value="Delete">
@@ -54,9 +51,8 @@
 	</div>
 	<p>Character</p>
 	<img src="image/Penguins.jpg" width="205" height="180">
-	<p>LV 3</p>
-	<p>Exp 20/40</p>
-	<p>HP 40/40
-	<p>
+	<p>LV <%=(int)session.getAttribute("level") %></p>
+	<p>Exp <%=(int)session.getAttribute("c_exp") %></p>
+	<p>HP <%=(int)session.getAttribute("c_hp") %></p>
 </body>
 </html>

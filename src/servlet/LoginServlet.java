@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import entity.Characters;
 import entity.Task;
 import entity.User;
+import service.CharacterService;
 import service.TaskService;
 import service.UserService;
 
@@ -42,6 +44,7 @@ public class LoginServlet extends HttpServlet {
 
 		// ログインチェック
 		UserService userService = new UserService();
+		CharacterService characterService = new CharacterService();
 		User user = userService.authentication(name, pass);
 		boolean isSuccess = user != null;
 
@@ -49,14 +52,19 @@ public class LoginServlet extends HttpServlet {
 		// 表示メッセージの受け渡し
 		if (isSuccess) {
 			// メッセージ設定
-	/*		List<Login> list = loginService.find();
-			request.setAttribute("loginList", list);*/
-			request.setAttribute("flag", true);
 			//SessionにNameとIDを保存
 			HttpSession session = request.getSession();
 			session.setAttribute("name", user.getUserName());
 			session.setAttribute("id", user.getUserId());
+			//該当ユーザーのexpをset
+			request.setAttribute("exp", characterService.getExp(user.getUserId()));
 
+			//Character情報をセッションスコープに保存
+			Characters c = characterService.getAll(user.getUserId());
+			session.setAttribute("user_id", c.getUser_id());
+			session.setAttribute("level", c.getLevel());
+			session.setAttribute("c_exp", c.getC_exp());
+			session.setAttribute("c_hp", c.getC_hp());
 
 			//tasksのカラムuser_idがuser.getUserId() (ログインしたuser_id)と一致するTaskをDBから取得、Sessionに保存
 			TaskService taskService = new TaskService();
