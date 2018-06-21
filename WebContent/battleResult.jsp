@@ -15,7 +15,8 @@
 				${fn:escapeXml(battle)}<br>
 		</c:forEach>
 		<br> <br>
-		Character <img src="image/Penguins.jpg" width="205" height="180">
+	<p>Character</p>
+	 <img src="image/Penguins.jpg" width="205" height="180">
 	<p>LV 3</p>
 	<p>HP 40/40</p>
 

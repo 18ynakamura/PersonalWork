@@ -45,7 +45,6 @@ public class battleServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		List<String> list = new ArrayList<String>();
 		MonsterService monsterService = new MonsterService();
 		CharacterService characterService = new CharacterService();
 		Monster m = monsterService.getAll(1);
@@ -54,12 +53,17 @@ public class battleServlet extends HttpServlet {
 		int monster_hp = m.getMonster_hp();
 		int cAttack = join.getAttack();
 		int c_hp = join.getC_hp();
-
-
+		int r;
+		List<String> list = new ArrayList<String>();
+		if (c_hp == 0) {
+			list.add("戦う気力がありません");
+		}
 		while(monster_hp > 0 && c_hp > 0){
-			list.add("主人公の攻撃！　　　モンスターは" + cAttack + "のダメージを受けた。");
+			r = new java.util.Random().nextInt(3);
+			int random = cAttack + r;
+			list.add("主人公の攻撃！　　　モンスターは" + random + "のダメージを受けた。");
 			list.add("モンスターの攻撃！　主人公は" + mAttack + "のダメージを受けた。");
-			monster_hp -= cAttack;
+			monster_hp -= random;
 			c_hp -= mAttack;
 
 			if(monster_hp < 0) {
@@ -71,6 +75,11 @@ public class battleServlet extends HttpServlet {
 			list.add("モンスターの勝利！");
 			}
 		}
+		//charactersテーブルのc_hpを更新、セッションに保存
+		characterService.setHp(c_hp,(int)session.getAttribute("user_id"));
+		session.removeAttribute("c_hp");
+		session.setAttribute("c_hp", c_hp);
+
 		request.setAttribute("battleLog", list);
 
 		request.getRequestDispatcher("battleResult.jsp").forward(request,  response);
