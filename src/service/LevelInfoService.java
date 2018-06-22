@@ -21,18 +21,18 @@ public class LevelInfoService {
 	//ExpをuserIdで検索
 	public int getExp(int userId) {
 		try (Connection conn = DbUtil.getConnection()) {
-			CharacterDao characterDao = new CharacterDao(conn);
-			return characterDao.getExp(userId);
+			LevelInfoDao levelInfoDao = new LevelInfoDao(conn);
+			return levelInfoDao.getExp(userId);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
 	//LevelInfoテーブルから全件取得
-	public LevelInfo getAll(int userId) {
+	public LevelInfo getAll(int level) {
 		try (Connection conn = DbUtil.getConnection()) {
 			LevelInfoDao levelInfoDao = new LevelInfoDao(conn);
-			return levelInfoDao.getAll(userId);
+			return levelInfoDao.getAll(level);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

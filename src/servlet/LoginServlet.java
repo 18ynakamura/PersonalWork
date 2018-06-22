@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
 
 		if ((name == null || pass == null) || ("".equals(name)) || ("".equals(pass))) {
 			// メッセージ設定
-			request.setAttribute("msg", "IDまたはPASSが間違っています");
+			request.setAttribute("msg", "入力項目は必須です");
 
 			// 次画面指定
 			request.getRequestDispatcher("login.jsp").forward(request, response);

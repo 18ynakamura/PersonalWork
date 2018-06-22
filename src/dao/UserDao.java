@@ -9,7 +9,7 @@ import entity.User;
 
 public class UserDao {
 	private static final String SQL_SELECT_ID_AND_PASS = "SELECT user_id, name, password FROM users WHERE name = ? AND password = ?";
-
+	private static final String SQL_INSERT_NAME_AND_PASS = "INSERT INTO users (name, password) VALUES (?, ?)";
 	private Connection connection;
 
 	public UserDao(Connection connection) {
@@ -34,5 +34,13 @@ public class UserDao {
 		}
 	}
 
-
+	public int register(String name, String pass) {
+		try(PreparedStatement stmt = connection.prepareStatement(SQL_INSERT_NAME_AND_PASS)) {
+			stmt.setString(1, name);
+			stmt.setString(2, pass);
+			return stmt.executeUpdate();
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

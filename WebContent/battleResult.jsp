@@ -17,8 +17,8 @@
 		<br> <br>
 	<p>Character</p>
 	 <img src="image/Penguins.jpg" width="205" height="180">
-	<p>LV 3</p>
-	<p>HP 40/40</p>
+	<p>LV <%=(int)session.getAttribute("level") %></p>
+	<p>Hp <%=(int)session.getAttribute("c_hp") %>/<%=(int)session.getAttribute("hp") %></p>
 
 	<p>VS</p>
 	<p>Monster</p>
